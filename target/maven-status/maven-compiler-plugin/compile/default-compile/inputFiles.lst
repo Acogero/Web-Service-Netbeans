@@ -1,0 +1,7 @@
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\dao\UsuarioDAO.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\modelo\Usuario.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\business\UsuarioBO.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\ws\UsuarioFacadeREST.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\ws\AbstractFacade.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\ws\ApplicationConfig.java
+D:\_PROJETOS\WebService\src\main\java\com\tipiniquim\bd\ConnectionFactory.java

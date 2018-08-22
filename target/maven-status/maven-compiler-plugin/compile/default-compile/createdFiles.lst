@@ -1,0 +1,7 @@
+com\tipiniquim\dao\UsuarioDAO.class
+com\tipiniquim\business\UsuarioBO.class
+com\tipiniquim\ws\AbstractFacade.class
+com\tipiniquim\modelo\Usuario.class
+com\tipiniquim\ws\UsuarioFacadeREST.class
+com\tipiniquim\bd\ConnectionFactory.class
+com\tipiniquim\ws\ApplicationConfig.class
