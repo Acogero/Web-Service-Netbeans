@@ -53,7 +53,7 @@ public class UsuarioDAO {
   }
 
   public List<Usuario> findAll() {
-    List<Usuario> listaUsuario = new ArrayList<>();
+    List<Usuario> listaUsuario = new ArrayList<Usuario>();
 
     try {
       listaUsuario = em2.createQuery("from Usuario u").getResultList();
