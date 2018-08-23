@@ -5,6 +5,7 @@
  */
 package com.tipiniquim.ws;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -17,7 +18,7 @@ public class ApplicationConfig extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> resources = new java.util.HashSet<>();
+        Set<Class<?>> resources = new HashSet();
         addRestResourceClasses(resources);
         return resources;
     }

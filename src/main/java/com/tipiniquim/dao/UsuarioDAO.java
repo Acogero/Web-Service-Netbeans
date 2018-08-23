@@ -5,105 +5,78 @@
  */
 package com.tipiniquim.dao;
 
-import com.tipiniquim.bd.ConnectionFactory;
-import com.tipiniquim.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import com.tipiniquim.bd.ConnectionFactory;
+import com.tipiniquim.modelo.Usuario;
 
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
  */
-public class UsuarioDAO extends Usuario {
-    
-    Usuario u = new Usuario();
-    
-    public static UsuarioDAO getInstance() {
-        return new UsuarioDAO();
-    }
+public class UsuarioDAO {
 
-    public Usuario merge(Usuario usuario) {
+  private Usuario u = new Usuario();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("meuPU");
-            
-//        EntityManager em = new ConnectionFactory().getConnection();
+  @PersistenceContext(name = "meuPU")
+  protected EntityManager em2;
 
-        EntityManager em = emf.createEntityManager();
-        
-        try {
+  public Usuario merge(Usuario usuario) {
 
-            Usuario usuarioOld = em.find(Usuario.class, usuario.getId());
-    
-            em.getTransaction().begin();
-            
-            if(usuario.getId() == usuarioOld.getId()) {
-                em.merge(usuario);
-            } else {
-                em.persist(usuario);
-            }
-            
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
-        return usuario;
-    }
-    
-    public Usuario findById(int id) {
-        EntityManager em = new ConnectionFactory().getConnection();
-        
-        try {
-            u = em.find(Usuario.class, id);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e);
-            em.getTransaction().rollback();
-        }finally {
-            em.close();
-        }
-        
-        return u;
-    }
-    
-    public List<Usuario> findAll() {
-        EntityManager em = new ConnectionFactory().getConnection(); 
-        List<Usuario> listaUsuario = new ArrayList<>();
-        
-        try {
-            listaUsuario = em.createQuery("from Usuario u").getResultList();
-        } catch (Exception e) {
-            System.out.println("Erro: " + e);
-            em.getTransaction().rollback();
-        }finally {
-            em.close();
-        }
-        
-        return listaUsuario;
-    }
-    
-    public Usuario delete(int id) {
-        EntityManager em = new ConnectionFactory().getConnection();  
-                
-        try {
-            u = em.find(Usuario.class, id);
-            
-            em.getTransaction().begin();
-            if (u != null) {
-                em.remove(u);
-            }
-            
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro: " + e);
-            em.getTransaction().rollback();
-        }finally {
-            em.close();
-        }
-        
-        return u;
+    try {
+
+      this.em2.merge(usuario);
+
+    } catch (Exception e) {
+      System.out.println("Erro: " + e.getMessage());
     } 
+
+    return usuario;
+  }
+
+  public Usuario findById(int id) {
+
+    try {
+      this.u = em2.find(Usuario.class, id);
+    } catch (Exception e) {
+      System.out.println("Erro: " + e);
+
+    } 
+
+    return this.u;
+  }
+
+  public List<Usuario> findAll() {
+    List<Usuario> listaUsuario = new ArrayList<>();
+
+    try {
+      listaUsuario = em2.createQuery("from Usuario u").getResultList();
+    } catch (Exception e) {
+      System.out.println("Erro: " + e);
+    }
+
+    return listaUsuario;
+  }
+
+  public Usuario delete(int id) {
+
+    try {
+      this.u = em2.find(Usuario.class, id);
+
+      if (this.u != null) {
+        em2.remove(this.u);
+      }
+
+    } catch (Exception e) {
+      System.out.println("Erro: " + e);
+    }
+
+    return this.u;
+  }
 }

@@ -6,11 +6,13 @@
 package com.tipiniquim.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -18,51 +20,52 @@ import javax.persistence.Id;
  */
 @Entity
 public class Usuario implements Serializable {
- 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    
-    @Column(name="nome")
-    private String nome;
-    @Column(name="email")
-    private String email;
-    @Column(name="senha")
-    private String senha;
 
-    public int getId() {
-        return id;
-    }
+  private static final long serialVersionUID = 1L;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  @Id
+  @Column(name = "id")
+  @SequenceGenerator(name = "id", sequenceName = "id", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
+  private int id;
 
-    public String getNome() {
-        return nome;
-    }
+  @Column(name = "nome")
+  private String nome;
+  @Column(name = "email")
+  private String email;
+  @Column(name = "senha")
+  private String senha;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public int getId() {
+    return this.id;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getNome() {
+    return this.nome;
+  }
 
-    public String getPassword() {
-        return senha;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public void setPassword(String password) {
-        this.senha = password;
-    }
-    
-    
-    
+  public String getEmail() {
+    return this.email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPassword() {
+    return this.senha;
+  }
+
+  public void setPassword(String password) {
+    this.senha = password;
+  }
+
 }

@@ -5,46 +5,55 @@
  */
 package com.tipiniquim.business;
 
+import java.io.IOException;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tipiniquim.dao.UsuarioDAO;
 import com.tipiniquim.modelo.Usuario;
-import java.io.IOException;
-
 
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
  */
-public class UsuarioBO {
-    
-    public UsuarioBO getInstance() {
-        return new UsuarioBO();
+@Stateless
+public class UsuarioBO
+{
+
+  @Inject
+  UsuarioDAO usuarioDAO;
+
+  public Usuario criandoUsuario(String usuario) throws IOException
+  {
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    Usuario c = objectMapper.readValue(usuario, Usuario.class);
+
+    if (c != null)
+    {
+      return this.usuarioDAO.merge(c);
+
     }
-    
-    public Usuario criandoUsuario(String usuario) throws IOException {
-        
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        Usuario c = objectMapper.readValue(usuario, Usuario.class);
-        
-        if (c != null) {
-            return UsuarioDAO.getInstance().merge(c);
-            
-        } else {  
-//            String mensagem = "Não salvou o usuário";
-            return null;
-        }
+    else
+    {
+      //            String mensagem = "Não salvou o usuário";
+      return null;
     }
-    
-    public Usuario usuarioTeste() {
-        Usuario u = new Usuario();
-        
-        u.setEmail("Email@email.com");
-        u.setId(01);
-        u.setNome("Nome Teste");
-        u.setPassword("qwe123asd");
-        
-        return u;
-    }
+  }
+
+  public Usuario usuarioTeste()
+  {
+    Usuario u = new Usuario();
+
+    u.setEmail("Email@email.com");
+    u.setId(01);
+    u.setNome("Nome Teste");
+    u.setPassword("qwe123asd");
+
+    return u;
+  }
 }
