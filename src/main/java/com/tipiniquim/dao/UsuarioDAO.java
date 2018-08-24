@@ -52,7 +52,8 @@ public class UsuarioDAO {
     return this.u;
   }
 
-  public List<Usuario> findAll() {
+  @SuppressWarnings("unchecked")
+public List<Usuario> findAll() {
     List<Usuario> listaUsuario = new ArrayList<Usuario>();
 
     try {

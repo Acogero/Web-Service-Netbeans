@@ -6,6 +6,7 @@
 package com.tipiniquim.business;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -55,5 +56,9 @@ public class UsuarioBO
     u.setPassword("qwe123asd");
 
     return u;
+  }
+  
+  public List<Usuario> getUsr() {
+	  return this.usuarioDAO.findAll();
   }
 }

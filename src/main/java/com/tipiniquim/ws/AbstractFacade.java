@@ -5,16 +5,14 @@
  */
 package com.tipiniquim.ws;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
  */
 public abstract class AbstractFacade<T> {
 
-    private final Class<T> entityClass;
+    @SuppressWarnings("unused")
+	private final Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
