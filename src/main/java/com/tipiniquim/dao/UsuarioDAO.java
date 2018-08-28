@@ -24,17 +24,15 @@ public class UsuarioDAO {
   @PersistenceContext(name = "meuPU")
   protected EntityManager em2;
 
-  public Usuario merge(Usuario usuario) {
+  public void merge(Usuario usuario) {
 
     try {
 
       this.em2.merge(usuario);
 
     } catch (Exception e) {
-      System.out.println("Erro: " + e.getMessage());
+    	System.out.println("Erro: " + e.getMessage());
     } 
-
-    return usuario;
   }
 
   public Usuario findById(int id) {

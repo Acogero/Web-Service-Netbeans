@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.tipiniquim.business.UsuarioBO;
 import com.tipiniquim.modelo.Usuario;
@@ -38,11 +39,11 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Path("/Cadastrar")
-  public Usuario cadastrar(String usuario) throws IOException {
+  public Response cadastrar(String usuario) throws IOException {
 
-    Usuario usrBO = this.usuarioBO.criandoUsuario(usuario);
-
-    return usrBO;
+	  this.usuarioBO.criandoUsuario(usuario);
+	  
+	  return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(usuario).build();
   }
   
   @GET

@@ -21,33 +21,24 @@ import com.tipiniquim.modelo.Usuario;
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
  */
 @Stateless
-public class UsuarioBO
-{
+public class UsuarioBO {
 
   @Inject
   UsuarioDAO usuarioDAO;
 
-  public Usuario criandoUsuario(String usuario) throws IOException
-  {
+  public void criandoUsuario(String usuario) throws IOException {
 
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     Usuario c = objectMapper.readValue(usuario, Usuario.class);
 
-    if (c != null)
-    {
-      return this.usuarioDAO.merge(c);
+    if (c != null) {
+      this.usuarioDAO.merge(c);
 
-    }
-    else
-    {
-      //            String mensagem = "Não salvou o usuário";
-      return null;
     }
   }
 
-  public Usuario usuarioTeste()
-  {
+  public Usuario usuarioTeste() {
     Usuario u = new Usuario();
 
     u.setEmail("Email@email.com");

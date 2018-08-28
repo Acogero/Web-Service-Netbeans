@@ -5,6 +5,16 @@
  */
 package com.tipiniquim.ws;
 
+import java.io.IOException;
+
+import javax.ws.rs.core.Response;
+
+import org.jboss.logging.Logger;
+import org.postgresql.util.Base64;
+
+import com.tipiniquim.utils.JsonUtils;
+import com.tipiniquim.utils.Retorno;
+
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
@@ -18,6 +28,30 @@ public abstract class AbstractFacade<T> {
         this.entityClass = entityClass;
     }
     
+    protected Response generateRetorno(Object obj) throws IOException {
+    	
+    	Logger logger = Logger.getLogger("INFO");
+    	logger.info("Gerando Retorno");
+    	Retorno retorno = Retorno.createRetornoSucesso(obj, "Sucesso");
+    	
+    	String retornoStr = JsonUtils.objectToJsonWithRootName(retorno); 
+    	logger.info("String retorno gerado");
+    	
+    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(retornoStr).build();
+    }
+    
+    @SuppressWarnings("unused")
+	private String toBase64(String value) {
+    	return Base64.encodeBytes(value.getBytes());
+    }
+
+    protected Response generateRetornoErro(String mensagem) throws IOException {
+
+    	Retorno retorno = Retorno.createRetornoErro(mensagem);
+
+    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(JsonUtils.objectToJsonWithRootName(retorno)).build();
+    }
+
 /*
     public void create(T entity) {
         getEntityManager().persist(entity);
