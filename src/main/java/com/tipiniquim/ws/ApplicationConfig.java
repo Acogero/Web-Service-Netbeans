@@ -7,13 +7,15 @@ package com.tipiniquim.ws;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
  */
-@javax.ws.rs.ApplicationPath("backend")
+@ApplicationPath("backend")
 public class ApplicationConfig extends Application {
 
     @Override
