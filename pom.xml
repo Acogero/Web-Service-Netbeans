@@ -32,11 +32,17 @@
             <scope>provided</scope>
         </dependency>
         
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.6</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.9.6</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.6</version>
+		</dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -73,6 +79,7 @@
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-core</artifactId>
+        	<version>5.2.0.Final</version>
         	<scope>provided</scope>
         	<exclusions>
         		<exclusion>
@@ -102,6 +109,7 @@
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-core</artifactId>
+        	<version>5.2.0.Final</version>
         	<scope>provided</scope>
         	<exclusions>
         		<exclusion>
@@ -131,6 +139,7 @@
         <dependency>
         	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate-core</artifactId>
+        	<version>5.2.0.Final</version>
         	<scope>provided</scope>
         	<exclusions>
         		<exclusion>

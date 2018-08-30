@@ -6,7 +6,6 @@
 package com.tipiniquim.ws;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.Response;
 
 import com.tipiniquim.business.UsuarioBO;
 import com.tipiniquim.modelo.Usuario;
+import com.tipiniquim.to.ClienteTO;
 
 /**
  *
@@ -43,13 +43,15 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
 	  this.usuarioBO.criandoUsuario(usuario);
 	  
-	  return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(usuario).build();
+	  return generateRetorno(usuario);
   }
   
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("/get")
-  public List<Usuario> getUsr() {
-	  return this.usuarioBO.getUsr();
+  public Response getUsr() throws IOException {
+	  ClienteTO clienteTO = this.usuarioBO.getUsr(); 
+	  
+	  return generateRetorno(clienteTO);
   }
 }

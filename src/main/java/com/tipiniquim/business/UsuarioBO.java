@@ -6,15 +6,18 @@
 package com.tipiniquim.business;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.tipiniquim.dao.UsuarioDAO;
 import com.tipiniquim.modelo.Usuario;
+import com.tipiniquim.to.ClienteTO;
+import com.tipiniquim.to.UsuarioTO;
 
 /**
  *
@@ -29,7 +32,6 @@ public class UsuarioBO {
   public void criandoUsuario(String usuario) throws IOException {
 
     ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     Usuario c = objectMapper.readValue(usuario, Usuario.class);
 
     if (c != null) {
@@ -49,7 +51,20 @@ public class UsuarioBO {
     return u;
   }
   
-  public List<Usuario> getUsr() {
-	  return this.usuarioDAO.findAll();
+  public ClienteTO getUsr() {
+	  List<UsuarioTO> usersTO = new ArrayList<UsuarioTO>();
+	  List<Usuario> users = this.usuarioDAO.findAll();
+	  
+	  if (users != null) {
+		  for (Usuario usuarioBD : users) {
+			  UsuarioTO usuarioTO = new UsuarioTO(usuarioBD);
+
+			  usersTO.add(usuarioTO);
+		  }
+	  }
+	  
+	  ClienteTO clienteTO = new ClienteTO(usersTO);
+	  
+	  return clienteTO;
   }
 }
