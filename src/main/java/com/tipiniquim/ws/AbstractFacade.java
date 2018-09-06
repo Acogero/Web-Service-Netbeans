@@ -12,9 +12,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.postgresql.util.Base64;
 
-import com.tipiniquim.utils.JsonUtils;
-import com.tipiniquim.utils.Retorno;
-
 /**
  *
  * @author Marcos Vinicius A. M. - Acogero - louis.seipher@gmail.com
@@ -22,22 +19,14 @@ import com.tipiniquim.utils.Retorno;
 public abstract class AbstractFacade<T> {
 
     @SuppressWarnings("unused")
-	private final Class<T> entityClass;
+    private final Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
     
-    protected Response generateRetorno(Object obj) throws IOException {
-    	
-    	Logger logger = Logger.getLogger("INFO");
-    	logger.info("Gerando Retorno");
-    	Retorno retorno = Retorno.createRetornoSucesso(obj, "Sucesso");
-    	
-    	String retornoStr = JsonUtils.objectToJsonWithRootName(retorno); 
-    	logger.info("String retorno gerado");
-    	
-    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(retornoStr).build();
+    protected Response generateRetorno(Object obj) throws IOException {    	
+    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(obj).build();
     }
     
     @SuppressWarnings("unused")
@@ -47,9 +36,7 @@ public abstract class AbstractFacade<T> {
 
     protected Response generateRetornoErro(String mensagem) throws IOException {
 
-    	Retorno retorno = Retorno.createRetornoErro(mensagem);
-
-    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(JsonUtils.objectToJsonWithRootName(retorno)).build();
+    	return Response.status(Response.Status.OK).header("Content-Type", "application/json; charset=UTF8").entity(mensagem).build();
     }
 
 /*
