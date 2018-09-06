@@ -9,7 +9,9 @@ import java.io.IOException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +27,7 @@ import com.tipiniquim.to.ClienteTO;
  */
 @Stateless
 @Path("/")
-public class UsuarioFacadeREST extends AbstractFacade<Usuario> implements UsuarioRestInter{
+public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
 
   @EJB
   UsuarioBO usuarioBO;
@@ -34,14 +36,18 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> implements Usuari
     super(Usuario.class);
   }
 
-  @Override
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path("/Cadastrar")
   public Response cadastrar(String usuario) throws IOException {
       
     this.usuarioBO.criandoUsuario(usuario);
     return generateRetorno(usuario);
   }
   
-  @Override
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("/get")
   public Response getUsr() throws IOException {
     return generateRetorno(getClienteTO());
   }
